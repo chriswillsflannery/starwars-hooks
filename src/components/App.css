@@ -1,0 +1,33 @@
+
+.fighters {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.character {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.nemesis {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.lukeImage {
+  width: 300px;
+}
+
+.nemesisImage {
+  width: 300px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+}
