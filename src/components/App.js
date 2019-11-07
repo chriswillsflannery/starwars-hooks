@@ -28,8 +28,10 @@ const App = () => {
     fetch(url)
       .then(data => data.json())
       .then(char => {
+        console.log("char?", char);
         setNemesis(char);
         const { name } = char;
+        console.log("char, name", char, name);
         // Turn Capitalized Name into lowercased-name-with.jpg
         const parsedName = `${name.toLowerCase().replace(/ /gi, '-')}.jpg`;
         console.log("parsedName", parsedName);
