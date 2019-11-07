@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import luke from '../images/luke-skywalker.jpg';
+import React, { useState, Suspense } from 'react';
+// import Luke from './Luke';
+// eslint-disable-next-line no-unused-vars
 import style from './App.css';
+// import luke from '../images/luke-skywalker.jpg';
+const Luke = React.lazy(() => import('./Luke'));
+const Nemesis = React.lazy(() => import('./Nemesis'));
 
 function importAll(r) {
   let images = {};
+  // eslint-disable-next-line array-callback-return
   r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
   return images;
 }
@@ -11,19 +16,19 @@ function importAll(r) {
 const images = importAll(require.context('../images', false, /\.(png|jpe?g|svg)$/));
 
 const App = () => {
-  const [character, setCharacter] = useState({});
+  // const [character, setCharacter] = useState({});
   const [nemesis, setNemesis] = useState(null);
   const [nemesisimg, setNemesisimg] = useState('');
 
-  useEffect(() => {
-    fetch('https://swapi.co/api/people/1')
-      .then(data => data.json())
-      .then(char => {
-        console.log(char)
-        setCharacter(char);
-      })
-      .catch(err => console.log("uh oh. error"));
-  }, [])
+  // useEffect(() => {
+  //   fetch('https://swapi.co/api/people/1')
+  //     .then(data => data.json())
+  //     .then(char => {
+  //       console.log(char)
+  //       setCharacter(char);
+  //     })
+  //     .catch(err => console.log("uh oh. error"));
+  // }, [])
 
   const getNemesis = () => {
     let randomNum = Math.ceil(Math.random() * 20);
@@ -47,28 +52,23 @@ const App = () => {
       .catch(err => console.log("unable to fetch nemesis"));
   }
 
-  const lukeImg = <img className="lukeImage" src={luke} alt="luke skywalker"></img>
-  const nemesisImg = <img className="nemesisImage" src={nemesisimg} alt="nemesis"></img>
+  // const lukeImg = <img className="lukeImage" src={luke} alt="luke skywalker"></img>
+  // const nemesisImg = <img className="nemesisImage" src={nemesisimg} alt="nemesis"></img>
 
   return (
     <>
       <div className="fighters">
-        <div className="character">
-          {character.name ? lukeImg : 'loading image........'}
-          <br />
-          {character.name ? `name: ${character.name}` : 'loading name........'}
-          <br />
-          {character.birth_year ? `birth year: ${character.birth_year}` : 'loading birth year........'}
-          <br />
-          {character.mass ? `mass: ${character.mass}` : 'loading mass........'}
-          <br />
-          <br />
-        </div>
-        <div className="nemesis">
+        <Suspense fallback={<div><p>....in a galaxy far far away...</p></div>}>
+          <Luke />
+        </Suspense>
+        {/* <div className="nemesis">
           {nemesis ? nemesisImg : null}
           <br />
           {nemesis ? `nemesis: ${nemesis.name}` : 'nemesis approaching!'}
-        </div>
+        </div> */}
+        <Suspense fallback={<div><p>....in a galaxy far far away...</p></div>}>
+          <Nemesis imag={nemesisimg} nemname={nemesis ? nemesis.name : null} />
+        </Suspense>
       </div>
       <div className="controls">
         <button onClick={() => getNemesis()}>
