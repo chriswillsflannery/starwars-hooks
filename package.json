@@ -6,7 +6,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
-    "react": "0.0.0-experimental-b53ea6ca0",
+    "react": "0.14.0",
     "react-dom": "0.0.0-experimental-b53ea6ca0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
